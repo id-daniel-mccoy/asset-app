@@ -1,0 +1,19 @@
+{
+  "name": "test-remote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@dfinity/agent": "^0.14.0",
+    "@dfinity/assets": "^0.14.0",
+    "@dfinity/candid": "^0.14.0",
+    "@dfinity/identity": "^0.14.0",
+    "azle": "^0.7.0"
+  }
+}
