@@ -8,7 +8,6 @@ import {
 import {
     DefaultResult,
     ExecuteCreateCanisterResult,
-    ExecuteProvisionalCreateCanisterWithCyclesResult,
     GetCanisterStatusResult,
 } from './types';
 
@@ -139,72 +138,6 @@ export async function getCanisterStatus(
 
     return {
         ok: canister_status_result
-    };
-}
-
-// TODO see https://forum.dfinity.org/t/question-about-deposit-cycles/12693
-// TODO this method won't work until we implement call_with_payment and/or call_with_payment128
-// TODO we will need to implement the ability to send payments with our cross canister calls
-// export function* execute_deposit_cycles(canister_id: Principal): DefaultResult {
-//     const canister_result: CanisterResult<void> = yield ManagementCanister.deposit_cycles({
-//         canister_id
-//     });
-
-//     if (!ok(canister_result)) {
-//         return {
-//             err: canister_result.err
-//         };
-//     }
-
-//     return {
-//         ok: true
-//     };
-// }
-
-// TODO we will test these once we can measure cycles better locally
-$update;
-export async function provisional_create_canister_with_cycles(): Promise<ExecuteProvisionalCreateCanisterWithCyclesResult> {
-    const canister_result = await management_canister
-        .provisional_create_canister_with_cycles({
-            amount: null,
-            settings: null
-        })
-        .call();
-
-    if (!ok(canister_result)) {
-        return {
-            err: canister_result.err
-        };
-    }
-
-    const provisional_create_canister_with_cycles_result = canister_result.ok;
-
-    return {
-        ok: provisional_create_canister_with_cycles_result
-    };
-}
-
-// TODO we will test these once we can measure cycles better locally
-$update;
-export async function provisional_top_up_canister(
-    canister_id: Principal,
-    amount: nat
-): Promise<DefaultResult> {
-    const canister_result = await management_canister
-        .provisional_top_up_canister({
-            canister_id,
-            amount
-        })
-        .call();
-
-    if (!ok(canister_result)) {
-        return {
-            err: canister_result.err
-        };
-    }
-
-    return {
-        ok: true
     };
 }
 

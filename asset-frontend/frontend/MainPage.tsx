@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react"
+import { ICWalletList } from "./components/login/ICWalletList";
+import { CreateCanister } from "./components/canister-ops/CreateCanister";
 
 export function MainPage() {
+
+  const [hasLoggedIn, setHasLoggedIn] = useState(false);
+  const [user, setUser] = useState("Not Connected");
+
+  const receiveFromChild = async(user: string) => {
+    setUser(user);
+    setHasLoggedIn(true);
+  }
 
   const filler = "This is content!";
 
   return (
     <div className="app">
-      <div className="header">
-        <h1>Welcome!</h1>
-      </div>
-      <div className="content">
-        <p>{filler}</p>
-        <button onClick={() => {alert("Hello World!");}}>Say Hello!</button>
-      </div>
+      <h1>The Asset App</h1>
+      {!hasLoggedIn ? <ICWalletList giveToParent={receiveFromChild}/> : <CreateCanister />}
     </div>
   )
 }

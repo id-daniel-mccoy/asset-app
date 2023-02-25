@@ -11,7 +11,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.get_created_canister_id = exports.provisional_top_up_canister = exports.provisional_create_canister_with_cycles = exports.getCanisterStatus = exports.installAssetWasm = exports.updateCanisterSettings = exports.createCanister = exports.Principal = void 0;
+exports.get_created_canister_id = exports.getCanisterStatus = exports.installAssetWasm = exports.updateCanisterSettings = exports.createCanister = exports.Principal = void 0;
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
         var info = gen[key](arg);
@@ -1723,49 +1723,6 @@ function _getCanisterStatus() {
         };
     });
     return _getCanisterStatus.apply(this, arguments);
-}
-function provisional_create_canister_with_cycles() {
-    return _provisional_create_canister_with_cycles.apply(this, arguments);
-}
-exports.provisional_create_canister_with_cycles = provisional_create_canister_with_cycles;
-function _provisional_create_canister_with_cycles() {
-    _provisional_create_canister_with_cycles = _asyncToGenerator(function*() {
-        const canister_result = yield management_canister.provisional_create_canister_with_cycles({
-            amount: null,
-            settings: null
-        }).call();
-        if (!ok(canister_result)) {
-            return {
-                err: canister_result.err
-            };
-        }
-        const provisional_create_canister_with_cycles_result = canister_result.ok;
-        return {
-            ok: provisional_create_canister_with_cycles_result
-        };
-    });
-    return _provisional_create_canister_with_cycles.apply(this, arguments);
-}
-function provisional_top_up_canister(canister_id, amount) {
-    return _provisional_top_up_canister.apply(this, arguments);
-}
-exports.provisional_top_up_canister = provisional_top_up_canister;
-function _provisional_top_up_canister() {
-    _provisional_top_up_canister = _asyncToGenerator(function*(canister_id, amount) {
-        const canister_result = yield management_canister.provisional_top_up_canister({
-            canister_id,
-            amount
-        }).call();
-        if (!ok(canister_result)) {
-            return {
-                err: canister_result.err
-            };
-        }
-        return {
-            ok: true
-        };
-    });
-    return _provisional_top_up_canister.apply(this, arguments);
 }
 function get_created_canister_id() {
     return state.created_canister_id;

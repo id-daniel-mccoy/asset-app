@@ -14,7 +14,7 @@ type DefiniteCanisterSettings = record {
   memory_allocation : nat;
   compute_allocation : nat;
 };
-type ManualReply = variant { ok : CanisterStatusArgs; err : text };
+type ManualReply = variant { ok : CreateCanisterResult; err : text };
 type ManualReply_1 = variant { ok : CanisterStatusResult; err : text };
 type ManualReply_2 = variant { ok : bool; err : text };
 service : () -> {
@@ -22,7 +22,5 @@ service : () -> {
   getCanisterStatus : (CanisterStatusArgs) -> (ManualReply_1);
   get_created_canister_id : () -> (principal) query;
   installAssetWasm : (principal, vec nat8) -> (ManualReply_2);
-  provisional_create_canister_with_cycles : () -> (ManualReply);
-  provisional_top_up_canister : (principal, nat) -> (ManualReply_2);
   updateCanisterSettings : (principal) -> (ManualReply_2);
 }
