@@ -1,4 +1,5 @@
-## Remote Azle Canister Test
+## The Asset App Backend
+### Version 0.2
 
 ### Getting Started:
 
@@ -20,13 +21,7 @@ Note: The default canister name is 'backend'. You can change that by modifying t
 The default dfx deploy command will not work due to the default wasm payload being over 2MB. To avoid the error and install the wasm directly use:
 
 ```
-dfx canister install backend --wasm target/wasm32-unknown-unknown/release/backend.wasm.gz
-```
-
-#### To Use:
-
-```
-dfx canister call backend hello_world
+dfx canister install backend --wasm .azle/backend/backend.wasm.gz --mode reinstall -y
 ```
 
 Disclaimer: Any method exposed by this canister is experimental and is subject to sudden changes, errors, and inconsistent operation, and potentially may not be permissioned. Use at your own risk.

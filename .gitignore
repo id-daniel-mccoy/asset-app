@@ -1,0 +1,6 @@
+asset-backend/.dfx
+asset-backend/.azle
+asset-backend/node_modules
+asset-frontend/node_modules
+asset-frontend/dist
+asset-frontend/.dfx
