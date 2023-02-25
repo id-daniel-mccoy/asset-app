@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dfinity/agent": "^0.14.0",
-    "@dfinity/assets": "^0.14.0",
-    "@dfinity/candid": "^0.14.0",
-    "@dfinity/identity": "^0.14.0",
-    "azle": "^0.7.0"
+    "@dfinity/agent": "^0.15.4",
+    "@dfinity/assets": "^0.15.4",
+    "@dfinity/candid": "^0.15.4",
+    "@dfinity/identity": "^0.15.4",
+    "azle": "^0.13.2"
   }
 }
