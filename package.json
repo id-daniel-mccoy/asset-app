@@ -1,0 +1,15 @@
+{
+    "name": "asset-app",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+      "install-deps": "cd asset-backend && npm install && cd ../asset-frontend && npm install",
+      "setup-backend": "cd asset-backend && dfx start --clean --background && dfx canister create --all && npx azle backend && dfx stop",
+      "setup-frontend": "cd asset-frontend && dfx start --clean --background && dfx deploy && dfx stop",
+      "quick-setup": "npm run install-deps && npm run setup-backend && npm run setup-frontend && echo 'Setup Complete!'"
+    },
+    "keywords": [],
+    "dependencies": {
+
+    }
+  }

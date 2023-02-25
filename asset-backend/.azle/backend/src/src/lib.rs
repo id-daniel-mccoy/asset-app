@@ -1543,195 +1543,13 @@ impl std::ops::DerefMut for HttpTransformFunc {
         &mut self.0
     }
 }
-type BitcoinAddress = String;
 type CanisterId = candid::Principal;
+type BlockHash = Vec<u8>;
+type MillisatoshiPerByte = u64;
+type BitcoinAddress = String;
+type Satoshi = u64;
 type Page = Vec<u8>;
 type WasmModule = Vec<u8>;
-type Satoshi = u64;
-type MillisatoshiPerByte = u64;
-type BlockHash = Vec<u8>;
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct Utxo {
-    height: Box<u32>,
-    outpoint: Box<Outpoint>,
-    value: Box<Satoshi>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct DefiniteCanisterSettings {
-    controllers: Box<Vec<candid::Principal>>,
-    compute_allocation: Box<candid::Nat>,
-    memory_allocation: Box<candid::Nat>,
-    freezing_threshold: Box<candid::Nat>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct StopCanisterArgs {
-    canister_id: Box<CanisterId>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct CanisterStatusResult {
-    status: Box<CanisterStatus>,
-    settings: Box<DefiniteCanisterSettings>,
-    module_hash: Box<Option<Vec<u8>>>,
-    memory_size: Box<candid::Nat>,
-    cycles: Box<candid::Nat>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct HttpResponse {
-    status: Box<candid::Nat>,
-    headers: Box<Vec<HttpHeader>>,
-    body: Box<Vec<u8>>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct HttpTransform {
-    function: Box<HttpTransformFunc>,
-    context: Box<Vec<u8>>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct ProvisionalCreateCanisterWithCyclesResult {
-    canister_id: Box<CanisterId>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct DeleteCanisterArgs {
-    canister_id: Box<CanisterId>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct CanisterSettings {
-    controllers: Box<Option<Vec<candid::Principal>>>,
-    compute_allocation: Box<Option<candid::Nat>>,
-    memory_allocation: Box<Option<candid::Nat>>,
-    freezing_threshold: Box<Option<candid::Nat>>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct ProvisionalCreateCanisterWithCyclesArgs {
-    amount: Box<Option<candid::Nat>>,
-    settings: Box<Option<CanisterSettings>>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct GetCurrentFeePercentilesArgs {
-    network: Box<BitcoinNetwork>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct EcdsaPublicKeyResult {
-    public_key: Box<Vec<u8>>,
-    chain_code: Box<Vec<u8>>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct StartCanisterArgs {
-    canister_id: Box<CanisterId>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct CanisterStatusArgs {
-    canister_id: Box<candid::Principal>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct SignWithEcdsaResult {
-    signature: Box<Vec<u8>>,
-}
 #[derive(
     serde :: Deserialize,
     Debug,
@@ -1752,10 +1570,9 @@ struct KeyId {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct SignWithEcdsaArgs {
-    message_hash: Box<Vec<u8>>,
-    derivation_path: Box<Vec<Vec<u8>>>,
-    key_id: Box<KeyId>,
+struct ProvisionalTopUpCanisterArgs {
+    canister_id: Box<CanisterId>,
+    amount: Box<candid::Nat>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1765,20 +1582,7 @@ struct SignWithEcdsaArgs {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct GetUtxosArgs {
-    address: Box<BitcoinAddress>,
-    filter: Box<Option<UtxosFilter>>,
-    network: Box<BitcoinNetwork>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct CreateCanisterResult {
+struct DeleteCanisterArgs {
     canister_id: Box<CanisterId>,
 }
 #[derive(
@@ -1789,21 +1593,10 @@ struct CreateCanisterResult {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct HttpTransformArgs {
-    response: Box<HttpResponse>,
-    context: Box<Vec<u8>>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct HttpHeader {
-    name: Box<String>,
-    value: Box<String>,
+struct Utxo {
+    height: Box<u32>,
+    outpoint: Box<Outpoint>,
+    value: Box<Satoshi>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1827,9 +1620,10 @@ struct InstallCodeArgs {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct UpdateSettingsArgs {
-    canister_id: Box<candid::Principal>,
-    settings: Box<CanisterSettings>,
+struct SignWithEcdsaArgs {
+    message_hash: Box<Vec<u8>>,
+    derivation_path: Box<Vec<Vec<u8>>>,
+    key_id: Box<KeyId>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1839,10 +1633,9 @@ struct UpdateSettingsArgs {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct EcdsaPublicKeyArgs {
-    canister_id: Box<Option<candid::Principal>>,
-    derivation_path: Box<Vec<Vec<u8>>>,
-    key_id: Box<KeyId>,
+struct ProvisionalCreateCanisterWithCyclesArgs {
+    amount: Box<Option<candid::Nat>>,
+    settings: Box<Option<CanisterSettings>>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1868,43 +1661,7 @@ struct HttpRequestArgs {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct GetBalanceArgs {
-    address: Box<BitcoinAddress>,
-    min_confirmations: Box<Option<u32>>,
-    network: Box<BitcoinNetwork>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct Outpoint {
-    txid: Box<Vec<u8>>,
-    vout: Box<u32>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct CreateCanisterArgs {
-    settings: Box<Option<CanisterSettings>>,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-struct UninstallCodeArgs {
+struct StartCanisterArgs {
     canister_id: Box<CanisterId>,
 }
 #[derive(
@@ -1915,9 +1672,8 @@ struct UninstallCodeArgs {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct ProvisionalTopUpCanisterArgs {
+struct StopCanisterArgs {
     canister_id: Box<CanisterId>,
-    amount: Box<candid::Nat>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1941,8 +1697,93 @@ struct GetUtxosResult {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-struct DepositCyclesArgs {
+struct HttpTransformArgs {
+    response: Box<HttpResponse>,
+    context: Box<Vec<u8>>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct CanisterStatusArgs {
+    canister_id: Box<candid::Principal>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct HttpHeader {
+    name: Box<String>,
+    value: Box<String>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct GetCurrentFeePercentilesArgs {
+    network: Box<BitcoinNetwork>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct UpdateSettingsArgs {
+    canister_id: Box<candid::Principal>,
+    settings: Box<CanisterSettings>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct ProvisionalCreateCanisterWithCyclesResult {
     canister_id: Box<CanisterId>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct HttpTransform {
+    function: Box<HttpTransformFunc>,
+    context: Box<Vec<u8>>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct CanisterStatusResult {
+    status: Box<CanisterStatus>,
+    settings: Box<DefiniteCanisterSettings>,
+    module_hash: Box<Option<Vec<u8>>>,
+    memory_size: Box<candid::Nat>,
+    cycles: Box<candid::Nat>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1964,10 +1805,10 @@ struct SendTransactionArgs {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-enum BitcoinNetwork {
-    Mainnet,
-    Regtest,
-    Testnet,
+struct HttpResponse {
+    status: Box<candid::Nat>,
+    headers: Box<Vec<HttpHeader>>,
+    body: Box<Vec<u8>>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1977,9 +1818,10 @@ enum BitcoinNetwork {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-enum ExecuteProvisionalCreateCanisterWithCyclesResult {
-    ok(Box<CreateCanisterResult>),
-    err(String),
+struct EcdsaPublicKeyArgs {
+    canister_id: Box<Option<candid::Principal>>,
+    derivation_path: Box<Vec<Vec<u8>>>,
+    key_id: Box<KeyId>,
 }
 #[derive(
     serde :: Deserialize,
@@ -1989,9 +1831,8 @@ enum ExecuteProvisionalCreateCanisterWithCyclesResult {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-enum ExecuteCreateCanisterResult {
-    ok(Box<CreateCanisterResult>),
-    err(String),
+struct CreateCanisterArgs {
+    settings: Box<Option<CanisterSettings>>,
 }
 #[derive(
     serde :: Deserialize,
@@ -2001,10 +1842,119 @@ enum ExecuteCreateCanisterResult {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
-enum InstallCodeMode {
-    install,
-    reinstall,
-    upgrade,
+struct DepositCyclesArgs {
+    canister_id: Box<CanisterId>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct CanisterSettings {
+    controllers: Box<Option<Vec<candid::Principal>>>,
+    compute_allocation: Box<Option<candid::Nat>>,
+    memory_allocation: Box<Option<candid::Nat>>,
+    freezing_threshold: Box<Option<candid::Nat>>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct CreateCanisterResult {
+    canister_id: Box<CanisterId>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct DefiniteCanisterSettings {
+    controllers: Box<Vec<candid::Principal>>,
+    compute_allocation: Box<candid::Nat>,
+    memory_allocation: Box<candid::Nat>,
+    freezing_threshold: Box<candid::Nat>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct GetBalanceArgs {
+    address: Box<BitcoinAddress>,
+    min_confirmations: Box<Option<u32>>,
+    network: Box<BitcoinNetwork>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct EcdsaPublicKeyResult {
+    public_key: Box<Vec<u8>>,
+    chain_code: Box<Vec<u8>>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct GetUtxosArgs {
+    address: Box<BitcoinAddress>,
+    filter: Box<Option<UtxosFilter>>,
+    network: Box<BitcoinNetwork>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct Outpoint {
+    txid: Box<Vec<u8>>,
+    vout: Box<u32>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct UninstallCodeArgs {
+    canister_id: Box<CanisterId>,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+struct SignWithEcdsaResult {
+    signature: Box<Vec<u8>>,
 }
 #[derive(
     serde :: Deserialize,
@@ -2016,43 +1966,6 @@ enum InstallCodeMode {
 )]
 enum GetCanisterStatusResult {
     ok(Box<CanisterStatusResult>),
-    err(String),
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-enum UtxosFilter {
-    MinConfirmations(u32),
-    Page(Box<Page>),
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-enum CanisterStatus {
-    running,
-    stopping,
-    stopped,
-}
-#[derive(
-    serde :: Deserialize,
-    Debug,
-    candid :: CandidType,
-    Clone,
-    CdkActTryIntoVmValue,
-    CdkActTryFromVmValue,
-)]
-enum DefaultResult {
-    ok(bool),
     err(String),
 }
 #[derive(
@@ -2076,8 +1989,95 @@ enum HttpMethod {
     CdkActTryIntoVmValue,
     CdkActTryFromVmValue,
 )]
+enum ExecuteCreateCanisterResult {
+    ok(Box<CreateCanisterResult>),
+    err(String),
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+enum DefaultResult {
+    ok(bool),
+    err(String),
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+enum UtxosFilter {
+    MinConfirmations(u32),
+    Page(Box<Page>),
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+enum ExecuteProvisionalCreateCanisterWithCyclesResult {
+    ok(Box<CreateCanisterResult>),
+    err(String),
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
 enum EcdsaCurve {
     secp256k1,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+enum InstallCodeMode {
+    install,
+    reinstall,
+    upgrade,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+enum BitcoinNetwork {
+    Mainnet,
+    Regtest,
+    Testnet,
+}
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+)]
+enum CanisterStatus {
+    running,
+    stopping,
+    stopped,
 }
 #[allow(non_snake_case)]
 async fn _azle_call_Management_bitcoin_get_balance(

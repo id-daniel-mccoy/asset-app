@@ -1,0 +1,27 @@
+Project Task List:
+
+Top Priority:
+
+- Create intuitive and efficient setup/startup commands with npm scripts
+- Unify frontend and backend into one dfx config
+- Create basic level documentation set
+- Unify backend wasm installation and controller update functions
+- Create basic documentation for the frontend canister
+- Add auth provider menu components, add to frontend
+
+Background Priority:
+
+- Create dedicated testing environment instructions
+- Create extended setup/startup instructions
+- Organize frontend UI, spice it up a bit
+- Work on ICP>XDR conversion for cycles pay wall for milestone 2
+- Organize/Unify all documentation
+- Create dedicated roadmap to post out in the open
+
+Extras:
+
+- Create loading screen component for frontend functions (half-done)
+- Create UI for paywall functionality (After cycles work is done)
+- Begin work on custom asset canisters
+- Maximize transparency of actions inside of response types
+- Minify frontend react code
