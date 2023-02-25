@@ -11,7 +11,36 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.hello_world = exports.Principal = void 0;
+exports.get_created_canister_id = exports.provisional_top_up_canister = exports.provisional_create_canister_with_cycles = exports.getCanisterStatus = exports.installAssetWasm = exports.updateCanisterSettings = exports.createCanister = exports.Principal = void 0;
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+    try {
+        var info = gen[key](arg);
+        var value = info.value;
+    } catch (error) {
+        reject(error);
+        return;
+    }
+    if (info.done) {
+        resolve(value);
+    } else {
+        Promise.resolve(value).then(_next, _throw);
+    }
+}
+function _asyncToGenerator(fn) {
+    return function() {
+        var self = this, args = arguments;
+        return new Promise(function(resolve, reject) {
+            var gen = fn.apply(self, args);
+            function _next(value) {
+                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+            }
+            function _throw(err) {
+                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+            }
+            _next(undefined);
+        });
+    };
+}
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -47,6 +76,12 @@ var __toESM = (module2, isNodeMode)=>{
         value: module2,
         enumerable: true
     })), module2);
+};
+var __decorateClass = (decorators, target, key, kind)=>{
+    var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+    for(var i2 = decorators.length - 1, decorator; i2 >= 0; i2--)if (decorator = decorators[i2]) result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+    if (kind && result) __defProp(target, key, result);
+    return result;
 };
 // node_modules/js-sha256/src/sha256.js
 var require_sha256 = __commonJS({
@@ -181,8 +216,8 @@ var require_sha256 = __commonJS({
                 method2.update = function(message) {
                     return method2.create().update(message);
                 };
-                for(var i2 = 0; i2 < OUTPUT_TYPES.length; ++i2){
-                    var type = OUTPUT_TYPES[i2];
+                for(var i3 = 0; i3 < OUTPUT_TYPES.length; ++i3){
+                    var type = OUTPUT_TYPES[i3];
                     method2[type] = createOutputMethod(type, is2242);
                 }
                 return method2;
@@ -222,8 +257,8 @@ var require_sha256 = __commonJS({
                 method2.update = function(key, message) {
                     return method2.create(key).update(message);
                 };
-                for(var i3 = 0; i3 < OUTPUT_TYPES.length; ++i3){
-                    var type = OUTPUT_TYPES[i3];
+                for(var i4 = 0; i4 < OUTPUT_TYPES.length; ++i4){
+                    var type = OUTPUT_TYPES[i4];
                     method2[type] = createHmacOutputMethod(type, is2242);
                 }
                 return method2;
@@ -298,7 +333,7 @@ var require_sha256 = __commonJS({
                     }
                     notString = true;
                 }
-                var code, index = 0, i4, length = message.length, blocks2 = this.blocks;
+                var code, index = 0, i5, length = message.length, blocks2 = this.blocks;
                 while(index < length){
                     if (this.hashed) {
                         this.hashed = false;
@@ -306,39 +341,39 @@ var require_sha256 = __commonJS({
                         blocks2[16] = blocks2[1] = blocks2[2] = blocks2[3] = blocks2[4] = blocks2[5] = blocks2[6] = blocks2[7] = blocks2[8] = blocks2[9] = blocks2[10] = blocks2[11] = blocks2[12] = blocks2[13] = blocks2[14] = blocks2[15] = 0;
                     }
                     if (notString) {
-                        for(i4 = this.start; index < length && i4 < 64; ++index){
-                            blocks2[i4 >> 2] |= message[index] << SHIFT[(i4++) & 3];
+                        for(i5 = this.start; index < length && i5 < 64; ++index){
+                            blocks2[i5 >> 2] |= message[index] << SHIFT[(i5++) & 3];
                         }
                     } else {
-                        for(i4 = this.start; index < length && i4 < 64; ++index){
+                        for(i5 = this.start; index < length && i5 < 64; ++index){
                             code = message.charCodeAt(index);
                             if (code < 128) {
-                                blocks2[i4 >> 2] |= code << SHIFT[(i4++) & 3];
+                                blocks2[i5 >> 2] |= code << SHIFT[(i5++) & 3];
                             } else if (code < 2048) {
-                                blocks2[i4 >> 2] |= (192 | code >> 6) << SHIFT[(i4++) & 3];
-                                blocks2[i4 >> 2] |= (128 | code & 63) << SHIFT[(i4++) & 3];
+                                blocks2[i5 >> 2] |= (192 | code >> 6) << SHIFT[(i5++) & 3];
+                                blocks2[i5 >> 2] |= (128 | code & 63) << SHIFT[(i5++) & 3];
                             } else if (code < 55296 || code >= 57344) {
-                                blocks2[i4 >> 2] |= (224 | code >> 12) << SHIFT[(i4++) & 3];
-                                blocks2[i4 >> 2] |= (128 | code >> 6 & 63) << SHIFT[(i4++) & 3];
-                                blocks2[i4 >> 2] |= (128 | code & 63) << SHIFT[(i4++) & 3];
+                                blocks2[i5 >> 2] |= (224 | code >> 12) << SHIFT[(i5++) & 3];
+                                blocks2[i5 >> 2] |= (128 | code >> 6 & 63) << SHIFT[(i5++) & 3];
+                                blocks2[i5 >> 2] |= (128 | code & 63) << SHIFT[(i5++) & 3];
                             } else {
                                 code = 65536 + ((code & 1023) << 10 | message.charCodeAt(++index) & 1023);
-                                blocks2[i4 >> 2] |= (240 | code >> 18) << SHIFT[(i4++) & 3];
-                                blocks2[i4 >> 2] |= (128 | code >> 12 & 63) << SHIFT[(i4++) & 3];
-                                blocks2[i4 >> 2] |= (128 | code >> 6 & 63) << SHIFT[(i4++) & 3];
-                                blocks2[i4 >> 2] |= (128 | code & 63) << SHIFT[(i4++) & 3];
+                                blocks2[i5 >> 2] |= (240 | code >> 18) << SHIFT[(i5++) & 3];
+                                blocks2[i5 >> 2] |= (128 | code >> 12 & 63) << SHIFT[(i5++) & 3];
+                                blocks2[i5 >> 2] |= (128 | code >> 6 & 63) << SHIFT[(i5++) & 3];
+                                blocks2[i5 >> 2] |= (128 | code & 63) << SHIFT[(i5++) & 3];
                             }
                         }
                     }
-                    this.lastByteIndex = i4;
-                    this.bytes += i4 - this.start;
-                    if (i4 >= 64) {
+                    this.lastByteIndex = i5;
+                    this.bytes += i5 - this.start;
+                    if (i5 >= 64) {
                         this.block = blocks2[16];
-                        this.start = i4 - 64;
+                        this.start = i5 - 64;
                         this.hash();
                         this.hashed = true;
                     } else {
-                        this.start = i4;
+                        this.start = i5;
                     }
                 }
                 if (this.bytes > 4294967295) {
@@ -352,11 +387,11 @@ var require_sha256 = __commonJS({
                     return;
                 }
                 this.finalized = true;
-                var blocks2 = this.blocks, i5 = this.lastByteIndex;
+                var blocks2 = this.blocks, i6 = this.lastByteIndex;
                 blocks2[16] = this.block;
-                blocks2[i5 >> 2] |= EXTRA[i5 & 3];
+                blocks2[i6 >> 2] |= EXTRA[i6 & 3];
                 this.block = blocks2[16];
-                if (i5 >= 56) {
+                if (i6 >= 56) {
                     if (!this.hashed) {
                         this.hash();
                     }
@@ -505,11 +540,11 @@ var require_sha256 = __commonJS({
                 return buffer;
             };
             function HmacSha256(key, is2242, sharedMemory) {
-                var i6, type = typeof key;
+                var i7, type = typeof key;
                 if (type === "string") {
                     var bytes = [], length = key.length, index = 0, code;
-                    for(i6 = 0; i6 < length; ++i6){
-                        code = key.charCodeAt(i6);
+                    for(i7 = 0; i7 < length; ++i7){
+                        code = key.charCodeAt(i7);
                         if (code < 128) {
                             bytes[index++] = code;
                         } else if (code < 2048) {
@@ -520,7 +555,7 @@ var require_sha256 = __commonJS({
                             bytes[index++] = 128 | code >> 6 & 63;
                             bytes[index++] = 128 | code & 63;
                         } else {
-                            code = 65536 + ((code & 1023) << 10 | key.charCodeAt(++i6) & 1023);
+                            code = 65536 + ((code & 1023) << 10 | key.charCodeAt(++i7) & 1023);
                             bytes[index++] = 240 | code >> 18;
                             bytes[index++] = 128 | code >> 12 & 63;
                             bytes[index++] = 128 | code >> 6 & 63;
@@ -547,10 +582,10 @@ var require_sha256 = __commonJS({
                     key = new Sha256(is2242, true).update(key).array();
                 }
                 var oKeyPad = [], iKeyPad = [];
-                for(i6 = 0; i6 < 64; ++i6){
-                    var b = key[i6] || 0;
-                    oKeyPad[i6] = 92 ^ b;
-                    iKeyPad[i6] = 54 ^ b;
+                for(i7 = 0; i7 < 64; ++i7){
+                    var b = key[i7] || 0;
+                    oKeyPad[i7] = 92 ^ b;
+                    iKeyPad[i7] = 54 ^ b;
                 }
                 Sha256.call(this, is2242, sharedMemory);
                 this.update(iKeyPad);
@@ -617,8 +652,8 @@ function encode(input) {
         }
         return 0;
     }
-    for(let i7 = 0; i7 < input.length;){
-        i7 += encodeByte(input[i7]);
+    for(let i8 = 0; i8 < input.length;){
+        i8 += encodeByte(input[i8]);
     }
     return output + (skip < 0 ? alphabet[bits >> 3] : "");
 }
@@ -912,8 +947,8 @@ var lookUpTable = new Uint32Array([
 function getCrc32(buf) {
     const b = new Uint8Array(buf);
     let crc = -1;
-    for(let i8 = 0; i8 < b.length; i8++){
-        const byte = b[i8];
+    for(let i9 = 0; i9 < b.length; i9++){
+        const byte = b[i9];
         const t = (byte ^ crc) & 255;
         crc = lookUpTable[t] ^ crc >>> 8;
     }
@@ -1008,9 +1043,9 @@ var Principal = class {
         return this.toText();
     }
     compareTo(other) {
-        for(let i9 = 0; i9 < Math.min(this._arr.length, other._arr.length); i9++){
-            if (this._arr[i9] < other._arr[i9]) return "lt";
-            else if (this._arr[i9] > other._arr[i9]) return "gt";
+        for(let i10 = 0; i10 < Math.min(this._arr.length, other._arr.length); i10++){
+            if (this._arr[i10] < other._arr[i10]) return "lt";
+            else if (this._arr[i10] > other._arr[i10]) return "gt";
         }
         if (this._arr.length < other._arr.length) return "lt";
         if (this._arr.length > other._arr.length) return "gt";
@@ -1038,6 +1073,59 @@ for(let i1 = 0; i1 < alphabet2.length; i1++){
 }
 lookupTable2["0"] = lookupTable2.o;
 lookupTable2["1"] = lookupTable2.i;
+function encode2(input) {
+    let skip = 0;
+    let bits = 0;
+    let output = "";
+    function encodeByte(byte) {
+        if (skip < 0) {
+            bits |= byte >> -skip;
+        } else {
+            bits = byte << skip & 248;
+        }
+        if (skip > 3) {
+            skip -= 8;
+            return 1;
+        }
+        if (skip < 4) {
+            output += alphabet2[bits >> 3];
+            skip += 5;
+        }
+        return 0;
+    }
+    for(let i11 = 0; i11 < input.length;){
+        i11 += encodeByte(input[i11]);
+    }
+    return output + (skip < 0 ? alphabet2[bits >> 3] : "");
+}
+function decode2(input) {
+    let skip = 0;
+    let byte = 0;
+    const output = new Uint8Array(input.length * 4 / 3 | 0);
+    let o = 0;
+    function decodeChar(char) {
+        let val = lookupTable2[char.toLowerCase()];
+        if (val === void 0) {
+            throw new Error(`Invalid character: ${JSON.stringify(char)}`);
+        }
+        val <<= 3;
+        byte |= val >>> skip;
+        skip += 5;
+        if (skip >= 8) {
+            output[o++] = byte;
+            skip -= 8;
+            if (skip > 0) {
+                byte = val << 5 - skip & 255;
+            } else {
+                byte = 0;
+            }
+        }
+    }
+    for (const c of input){
+        decodeChar(c);
+    }
+    return output.slice(0, o);
+}
 // node_modules/azle/node_modules/@dfinity/principal/lib/esm/utils/getCrc.js
 var lookUpTable2 = new Uint32Array([
     0,
@@ -1297,15 +1385,391 @@ var lookUpTable2 = new Uint32Array([
     1510334235,
     755167117
 ]);
+function getCrc322(buf) {
+    const b = new Uint8Array(buf);
+    let crc = -1;
+    for(let i12 = 0; i12 < b.length; i12++){
+        const byte = b[i12];
+        const t = (byte ^ crc) & 255;
+        crc = lookUpTable2[t] ^ crc >>> 8;
+    }
+    return (crc ^ -1) >>> 0;
+}
 // node_modules/azle/node_modules/@dfinity/principal/lib/esm/utils/sha224.js
 var import_js_sha2562 = __toESM(require_sha256());
+function sha2242(data) {
+    const shaObj = import_js_sha2562.sha224.create();
+    shaObj.update(data);
+    return new Uint8Array(shaObj.array());
+}
+// node_modules/azle/node_modules/@dfinity/principal/lib/esm/index.js
+var SELF_AUTHENTICATING_SUFFIX2 = 2;
+var ANONYMOUS_SUFFIX2 = 4;
+var fromHexString2 = (hexString)=>{
+    var _a;
+    return new Uint8Array(((_a = hexString.match(/.{1,2}/g)) !== null && _a !== void 0 ? _a : []).map((byte)=>parseInt(byte, 16)
+    ));
+};
+var toHexString2 = (bytes)=>bytes.reduce((str, byte)=>str + byte.toString(16).padStart(2, "0")
+    , "")
+;
+var Principal2 = class {
+    static anonymous() {
+        return new this(new Uint8Array([
+            ANONYMOUS_SUFFIX2
+        ]));
+    }
+    static selfAuthenticating(publicKey) {
+        const sha = sha2242(publicKey);
+        return new this(new Uint8Array([
+            ...sha,
+            SELF_AUTHENTICATING_SUFFIX2
+        ]));
+    }
+    static from(other) {
+        if (typeof other === "string") {
+            return Principal2.fromText(other);
+        } else if (typeof other === "object" && other !== null && other._isPrincipal === true) {
+            return new Principal2(other._arr);
+        }
+        throw new Error(`Impossible to convert ${JSON.stringify(other)} to Principal.`);
+    }
+    static fromHex(hex) {
+        return new this(fromHexString2(hex));
+    }
+    static fromText(text) {
+        const canisterIdNoDash = text.toLowerCase().replace(/-/g, "");
+        let arr = decode2(canisterIdNoDash);
+        arr = arr.slice(4, arr.length);
+        const principal = new this(arr);
+        if (principal.toText() !== text) {
+            throw new Error(`Principal "${principal.toText()}" does not have a valid checksum (original value "${text}" may not be a valid Principal ID).`);
+        }
+        return principal;
+    }
+    static fromUint8Array(arr) {
+        return new this(arr);
+    }
+    isAnonymous() {
+        return this._arr.byteLength === 1 && this._arr[0] === ANONYMOUS_SUFFIX2;
+    }
+    toUint8Array() {
+        return this._arr;
+    }
+    toHex() {
+        return toHexString2(this._arr).toUpperCase();
+    }
+    toText() {
+        const checksumArrayBuf = new ArrayBuffer(4);
+        const view = new DataView(checksumArrayBuf);
+        view.setUint32(0, getCrc322(this._arr));
+        const checksum = new Uint8Array(checksumArrayBuf);
+        const bytes = Uint8Array.from(this._arr);
+        const array = new Uint8Array([
+            ...checksum,
+            ...bytes
+        ]);
+        const result = encode2(array);
+        const matches = result.match(/.{1,5}/g);
+        if (!matches) {
+            throw new Error();
+        }
+        return matches.join("-");
+    }
+    toString() {
+        return this.toText();
+    }
+    constructor(_arr){
+        this._arr = _arr;
+        this._isPrincipal = true;
+    }
+};
 var _ic;
 // node_modules/azle/index.ts
 var ic = (_ic = globalThis.ic) !== null && _ic !== void 0 ? _ic : {};
-// src/index.ts
-function hello_world() {
-    return "Hello world!";
+function ok(azle_result) {
+    if (azle_result.err === void 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
-exports.hello_world = hello_world;
+function update(target, name) {
+    external_canister_method_decoration(target, name);
+}
+function external_canister_method_decoration(target, name) {
+    Object.defineProperty(target, name, {
+        get () {
+            return (...args)=>{
+                return {
+                    call: ()=>{
+                        return ic[`_azle_call_${target.constructor.name}_${name}`](this.canister_id, args);
+                    },
+                    notify: ()=>{
+                        return ic[`_azle_notify_${target.constructor.name}_${name}`](this.canister_id, args);
+                    },
+                    cycles: (cycles)=>{
+                        return {
+                            call: ()=>{
+                                return ic[`_azle_call_with_payment_${target.constructor.name}_${name}`](this.canister_id, [
+                                    ...args,
+                                    cycles
+                                ]);
+                            },
+                            notify: ()=>{
+                                return ic[`_azle_notify_with_payment128_${target.constructor.name}_${name}`](this.canister_id, args, cycles);
+                            }
+                        };
+                    },
+                    cycles128: (cycles)=>{
+                        return {
+                            notify: ()=>{
+                                return ic[`_azle_notify_with_payment128_${target.constructor.name}_${name}`](this.canister_id, args, cycles);
+                            },
+                            call: ()=>{
+                                return ic[`_azle_call_with_payment128_${target.constructor.name}_${name}`](this.canister_id, [
+                                    ...args,
+                                    cycles
+                                ]);
+                            }
+                        };
+                    }
+                };
+            };
+        }
+    });
+}
+var ExternalCanister = class {
+    constructor(canister_id){
+        this.canister_id = canister_id;
+    }
+};
+// node_modules/azle/canisters/management/index.ts
+var Management = class extends ExternalCanister {
+};
+__decorateClass([
+    update
+], Management.prototype, "bitcoin_get_balance", 2);
+__decorateClass([
+    update
+], Management.prototype, "bitcoin_get_current_fee_percentiles", 2);
+__decorateClass([
+    update
+], Management.prototype, "bitcoin_get_utxos", 2);
+__decorateClass([
+    update
+], Management.prototype, "bitcoin_send_transaction", 2);
+__decorateClass([
+    update
+], Management.prototype, "create_canister", 2);
+__decorateClass([
+    update
+], Management.prototype, "update_settings", 2);
+__decorateClass([
+    update
+], Management.prototype, "install_code", 2);
+__decorateClass([
+    update
+], Management.prototype, "uninstall_code", 2);
+__decorateClass([
+    update
+], Management.prototype, "start_canister", 2);
+__decorateClass([
+    update
+], Management.prototype, "stop_canister", 2);
+__decorateClass([
+    update
+], Management.prototype, "canister_status", 2);
+__decorateClass([
+    update
+], Management.prototype, "delete_canister", 2);
+__decorateClass([
+    update
+], Management.prototype, "deposit_cycles", 2);
+__decorateClass([
+    update
+], Management.prototype, "raw_rand", 2);
+__decorateClass([
+    update
+], Management.prototype, "http_request", 2);
+__decorateClass([
+    update
+], Management.prototype, "provisional_create_canister_with_cycles", 2);
+__decorateClass([
+    update
+], Management.prototype, "provisional_top_up_canister", 2);
+__decorateClass([
+    update
+], Management.prototype, "ecdsa_public_key", 2);
+__decorateClass([
+    update
+], Management.prototype, "sign_with_ecdsa", 2);
+var management_canister = new Management(Principal2.fromText("aaaaa-aa"));
+// src/index.ts
+var state = {
+    created_canister_id: Principal2.fromText("aaaaa-aa")
+};
+var allowedUser = Principal2.fromText("7zdi6-6h2gk-g4j54-cigti-iiu4u-lj4vy-bewjf-oouoc-dnlck-fyfy5-aae");
+function createCanister() {
+    return _createCanister.apply(this, arguments);
+}
+exports.createCanister = createCanister;
+function _createCanister() {
+    _createCanister = _asyncToGenerator(function*() {
+        if (ic.caller() !== allowedUser) {
+            return {
+                err: "Only allowed user can create canister"
+            };
+        } else {
+            const create_canister_result_canister_result = yield management_canister.create_canister({
+                settings: null
+            }).cycles(300000000000n).call();
+            if (!ok(create_canister_result_canister_result)) {
+                return {
+                    err: create_canister_result_canister_result.err
+                };
+            }
+            const create_canister_result = create_canister_result_canister_result.ok;
+            state.created_canister_id = create_canister_result.canister_id;
+            return {
+                ok: create_canister_result
+            };
+        }
+    });
+    return _createCanister.apply(this, arguments);
+}
+function updateCanisterSettings(canister_id) {
+    return _updateCanisterSettings.apply(this, arguments);
+}
+exports.updateCanisterSettings = updateCanisterSettings;
+function _updateCanisterSettings() {
+    _updateCanisterSettings = _asyncToGenerator(function*(canister_id) {
+        if (ic.caller() !== allowedUser) {
+            return {
+                err: "Only allowed user can update canister settings"
+            };
+        } else {
+            const canister_result = yield management_canister.update_settings({
+                canister_id,
+                settings: {
+                    controllers: [
+                        ic.caller()
+                    ],
+                    compute_allocation: null,
+                    memory_allocation: null,
+                    freezing_threshold: null
+                }
+            }).call();
+            if (!ok(canister_result)) {
+                return {
+                    err: canister_result.err
+                };
+            }
+            return {
+                ok: true
+            };
+        }
+    });
+    return _updateCanisterSettings.apply(this, arguments);
+}
+function installAssetWasm(canister_id, wasm_module) {
+    return _installAssetWasm.apply(this, arguments);
+}
+exports.installAssetWasm = installAssetWasm;
+function _installAssetWasm() {
+    _installAssetWasm = _asyncToGenerator(function*(canister_id, wasm_module) {
+        if (ic.caller() !== allowedUser) {
+            return {
+                err: "Only allowed user can install wasm"
+            };
+        } else {
+            const canister_result = yield management_canister.install_code({
+                mode: {
+                    install: null
+                },
+                canister_id,
+                wasm_module,
+                arg: Uint8Array.from([])
+            }).cycles(100000000000n).call();
+            if (!ok(canister_result)) {
+                return {
+                    err: canister_result.err
+                };
+            }
+            return {
+                ok: true
+            };
+        }
+    });
+    return _installAssetWasm.apply(this, arguments);
+}
+function getCanisterStatus(args) {
+    return _getCanisterStatus.apply(this, arguments);
+}
+exports.getCanisterStatus = getCanisterStatus;
+function _getCanisterStatus() {
+    _getCanisterStatus = _asyncToGenerator(function*(args) {
+        const canister_status_result_canister_result = yield management_canister.canister_status({
+            canister_id: args.canister_id
+        }).call();
+        if (canister_status_result_canister_result.ok === void 0) {
+            return {
+                err: canister_status_result_canister_result.err
+            };
+        }
+        const canister_status_result = canister_status_result_canister_result.ok;
+        return {
+            ok: canister_status_result
+        };
+    });
+    return _getCanisterStatus.apply(this, arguments);
+}
+function provisional_create_canister_with_cycles() {
+    return _provisional_create_canister_with_cycles.apply(this, arguments);
+}
+exports.provisional_create_canister_with_cycles = provisional_create_canister_with_cycles;
+function _provisional_create_canister_with_cycles() {
+    _provisional_create_canister_with_cycles = _asyncToGenerator(function*() {
+        const canister_result = yield management_canister.provisional_create_canister_with_cycles({
+            amount: null,
+            settings: null
+        }).call();
+        if (!ok(canister_result)) {
+            return {
+                err: canister_result.err
+            };
+        }
+        const provisional_create_canister_with_cycles_result = canister_result.ok;
+        return {
+            ok: provisional_create_canister_with_cycles_result
+        };
+    });
+    return _provisional_create_canister_with_cycles.apply(this, arguments);
+}
+function provisional_top_up_canister(canister_id, amount) {
+    return _provisional_top_up_canister.apply(this, arguments);
+}
+exports.provisional_top_up_canister = provisional_top_up_canister;
+function _provisional_top_up_canister() {
+    _provisional_top_up_canister = _asyncToGenerator(function*(canister_id, amount) {
+        const canister_result = yield management_canister.provisional_top_up_canister({
+            canister_id,
+            amount
+        }).call();
+        if (!ok(canister_result)) {
+            return {
+                err: canister_result.err
+            };
+        }
+        return {
+            ok: true
+        };
+    });
+    return _provisional_top_up_canister.apply(this, arguments);
+}
+function get_created_canister_id() {
+    return state.created_canister_id;
+}
+exports.get_created_canister_id = get_created_canister_id;
 
         
