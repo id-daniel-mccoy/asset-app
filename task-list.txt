@@ -2,12 +2,10 @@ Project Task List:
 
 Top Priority:
 
-- Create intuitive and efficient setup/startup commands with npm scripts
 - Unify frontend and backend into one dfx config
 - Create basic level documentation set
 - Unify backend wasm installation and controller update functions
 - Create basic documentation for the frontend canister
-- Add auth provider menu components, add to frontend
 
 Background Priority:
 

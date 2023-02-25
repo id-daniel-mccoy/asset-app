@@ -1,5 +1,5 @@
 ## The Asset App
-### Version 0.2
+### Version 0.3.1
 
 ### Easy Setup:
 

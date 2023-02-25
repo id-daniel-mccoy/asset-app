@@ -1,5 +1,5 @@
 ## The Asset App Backend
-### Version 0.2
+### Version 0.3.1
 
 ### Getting Started:
 
